@@ -47,9 +47,29 @@ export const auth = createSlice({
     },
   },
   extraReducers(builder) {
-    builder.addCase(getCredentials.pending, (state) => {
-      state.status = 'loading'
-      state.isAuth = false
-    })
+    builder
+      .addCase(getCredentials.pending, (state) => {
+        state.status = 'loading'
+        state.isAuth = false
+      })
+      .addCase(getCredentials.fulfilled, (state, { payload }) => {
+        state.status = 'succeeded'
+        state.token = payload.body.token
+        state.isAuth = true
+      })
+      .addCase(getCredentials.rejected, (state, action) => {
+        state.status = 'failed'
+        state.isAuth = false
+
+        if (action.payload === 'ERR_NETWORK') {
+          state.error = 'Network Error'
+        } else if (action.payload === 'ERR_BAD_REQUEST') {
+          state.error = ' Invalid Username or Password'
+        }
+      })
   },
 })
+
+export const { userCredentials, logout } = auth.actions
+
+export const authReducer = auth.reducer
