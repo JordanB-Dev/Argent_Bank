@@ -63,7 +63,7 @@ export const auth = createSlice({
   },
 })
 
-export const getAuthisAuth = (state) => state.auth.isAuth
+export const getisAuth = (state) => state.auth.isAuth
 export const getAuthStatus = (state) => state.auth.status
 export const getAuthError = (state) => state.auth.error
 export const getAuthToken = (state) => state.auth.token
