@@ -4,7 +4,7 @@ import Logo from '../../assets/argentBankLogo.png'
 const Header = () => {
   return (
     <nav className="main-nav">
-      <NavLink className="main-nav-logo" href="./index.html">
+      <NavLink className="main-nav-logo" to="/">
         <img
           className="main-nav-logo-image"
           src={Logo}
@@ -13,7 +13,7 @@ const Header = () => {
         <h1 className="sr-only">Argent Bank</h1>
       </NavLink>
       <div>
-        <NavLink className="main-nav-item" href="./sign-in.html">
+        <NavLink className="main-nav-item" to="/login">
           <i className="fa fa-user-circle"></i>
           Sign In
         </NavLink>
