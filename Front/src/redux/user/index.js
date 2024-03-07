@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 const initialState = {
   id: null,
   email: null,
-  firstName: 'Jordan',
+  firstName: null,
   lastName: null,
   createdAt: null,
   updatedAt: null,
