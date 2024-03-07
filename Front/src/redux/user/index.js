@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
@@ -13,13 +12,16 @@ const initialState = {
 export const getUserState = createAsyncThunk(
   'user/getUserState',
   async (token) => {
-    const response = await fetch(`${process.env.URL}/api/v1/user/profile`, {
-      method: 'POST',
-      header: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+    const response = await fetch(
+      `${import.meta.env.VITE_URL}/api/v1/user/profile`,
+      {
+        method: 'POST',
+        header: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
       },
-    })
+    )
     return response.data.body
   },
 )

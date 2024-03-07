@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 const initialState = {
@@ -14,7 +13,7 @@ export const getCredentials = createAsyncThunk(
   async (credentials, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        `${process.env.URL}/api/v1/user/login`,
+        `${import.meta.env.VITE_URL}/api/v1/user/login`,
         credentials,
         {
           method: 'POST',
