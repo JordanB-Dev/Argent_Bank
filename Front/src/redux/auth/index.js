@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 const initialState = {
-  credentials: '',
-  isAuth: false,
+  credentials: {},
+  isAuth: true,
   token: null,
   status: 'idle',
   error: null,
@@ -30,7 +30,7 @@ export const getCredentials = createAsyncThunk(
   },
 )
 
-export const auth = createSlice({
+export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
@@ -55,7 +55,7 @@ export const auth = createSlice({
         state.isAuth = false
 
         if (action.payload === 'ERR_NETWORK') {
-          state.error = 'Network Error'
+          state.error = action.error.message
         } else if (action.payload === 'ERR_BAD_REQUEST') {
           state.error = ' Invalid Username or Password'
         }
@@ -63,11 +63,6 @@ export const auth = createSlice({
   },
 })
 
-export const getisAuth = (state) => state.auth.isAuth
-export const getAuthStatus = (state) => state.auth.status
-export const getAuthError = (state) => state.auth.error
-export const getAuthToken = (state) => state.auth.token
+export const { userCredentials, logout } = authSlice.actions
 
-export const { userCredentials, logout } = auth.actions
-
-export const authReducer = auth.reducer
+export const authReducer = authSlice.reducer
