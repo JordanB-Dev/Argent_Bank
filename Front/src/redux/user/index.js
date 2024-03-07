@@ -9,7 +9,7 @@ const initialState = {
   updatedAt: null,
 }
 
-export const getUserState = createAsyncThunk(
+export const fetchUserData = createAsyncThunk(
   'user/getUserState',
   async (token) => {
     const response = await fetch(
@@ -33,7 +33,14 @@ export const userSlice = createSlice({
     resetUserState: (state) => Object.assign(state, initialState),
   },
   extraReducers: (builder) => {
-    builder
+    builder.addCase(fetchUserData.fulfilled, (state, { payload }) => {
+      state.id = payload.id
+      state.email = payload.email
+      state.firstName = payload.firstName
+      state.lastName = payload.lastName
+      state.createdAt = payload.createdAt
+      state.updatedAt = payload.updatedAt
+    })
   },
 })
 
