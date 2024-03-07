@@ -10,7 +10,7 @@ const initialState = {
 }
 
 export const getCredentials = createAsyncThunk(
-  'auth/userCredentials',
+  'auth/getCredentials',
   async (credentials, { rejectWithValue }) => {
     try {
       const response = await fetch(
