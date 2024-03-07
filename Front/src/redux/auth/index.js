@@ -10,7 +10,7 @@ const initialState = {
 }
 
 export const getCredentials = createAsyncThunk(
-  'auth/getCredentials',
+  'auth/userCredentials',
   async (credentials, { rejectWithValue }) => {
     try {
       const response = await fetch(
@@ -31,20 +31,14 @@ export const getCredentials = createAsyncThunk(
   },
 )
 
-export const auth = createSlice({
+export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    userCredentials(state, action) {
+    userCredentials: (state, action) => {
       state.credentials = action.payload
     },
-    logout(state) {
-      state.credentials = ''
-      state.isAuth = false
-      state.token = null
-      state.status = 'idle'
-      state.error = null
-    },
+    logout: (state) => Object.assign(state, initialState),
   },
   extraReducers(builder) {
     builder
@@ -70,6 +64,6 @@ export const auth = createSlice({
   },
 })
 
-export const { userCredentials, logout } = auth.actions
+export const { userCredentials, logout } = authSlice.actions
 
-export const authReducer = auth.reducer
+export const authReducer = authSlice.reducer
