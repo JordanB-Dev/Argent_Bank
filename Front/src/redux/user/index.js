@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import axios from 'axios'
 
 const initialState = {
   id: null,
@@ -12,16 +13,11 @@ const initialState = {
 export const fetchUserData = createAsyncThunk(
   'user/getUserState',
   async (token) => {
-    const response = await fetch(
-      `${import.meta.env.VITE_URL}/api/v1/user/profile`,
-      {
-        method: 'POST',
-        header: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      },
-    )
+    const response = await axios({
+      method: 'post',
+      url: `${import.meta.env.VITE_URL}/api/v1/user/profile`,
+      headers: { Authorization: `Bearer ${token}` },
+    })
     return response.data.body
   },
 )

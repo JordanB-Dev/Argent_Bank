@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import axios from 'axios'
 
 const initialState = {
   credentials: {},
@@ -12,16 +13,9 @@ export const getCredentials = createAsyncThunk(
   'auth/getCredentials',
   async (credentials, { rejectWithValue }) => {
     try {
-      const response = await fetch(
+      const response = await axios.post(
         `${import.meta.env.VITE_URL}/api/v1/user/login`,
         credentials,
-        {
-          method: 'POST',
-          body: JSON.stringify(credentials),
-          header: {
-            'Content-Type': 'application/json',
-          },
-        },
       )
       return response.data
     } catch (error) {
