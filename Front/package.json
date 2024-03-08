@@ -9,7 +9,7 @@
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "sass": "sass --watch ./src/assets/styles/sass/main.scss:src/assets/styles/style.css --style compressed",
+    "sass": "sass --watch ./src/assets/styles/sass/style.scss:src/assets/styles/style.css --style compressed",
     "prefix": "postcss ./src/assets/styles/style.css --use autoprefixer -d ./src/assets/styles/"
   },
   "dependencies": {

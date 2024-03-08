@@ -12,6 +12,7 @@ body {
   flex-direction: column;
   min-height: 100vh;
 }
+
 main {
   height: calc(100% - 150px);
   min-height: calc(100vh - 150px);
@@ -79,8 +80,9 @@ main {
   width: 200px;
 }
 
+
 .hero {
-  background-image: url('../assets/bank-tree.jpeg');
+  background-image: url("../img/bank-tree.jpeg");
   background-position: 0 -50px;
   background-size: cover;
   background-repeat: no-repeat;
@@ -109,6 +111,30 @@ main {
   font-size: 0.9rem;
 }
 
+@media (min-width: 920px) {
+  .hero {
+    height: 400px;
+    background-position: 0% 33%;
+  }
+
+  .hero-content {
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    width: 300px;
+    margin: 2rem;
+  }
+
+  .hero-content .subtitle {
+    font-size: 1.5rem;
+  }
+
+  .hero-content .text {
+    font-size: 1.2rem;
+  }
+}
+
+
 .fa {
   margin-right: 0.3rem;
 }
@@ -117,28 +143,6 @@ main {
   color: red;
 }
 
-@media (min-width: 920px) {
-  .hero {
-      height: 400px;
-      background-position: 0% 33%;
-  }
-
-  .hero-content {
-      position: absolute;
-      top: 50px;
-      right: 50px;
-      width: 300px;
-      margin: 2rem;
-  }
-
-  .hero-content .subtitle {
-      font-size: 1.5rem;
-  }
-
-  .hero-content .text {
-      font-size: 1.2rem;
-  }
-}
 
 .features {
   display: flex;
@@ -147,7 +151,7 @@ main {
 
 @media (min-width: 920px) {
   .features {
-      flex-direction: row;
+    flex-direction: row;
   }
 }
 
@@ -186,9 +190,8 @@ main {
   box-sizing: border-box;
   background-color: white;
   width: 300px;
-  margin: 40px auto;
+  margin: 0 auto;
   margin-top: 3rem;
-  margin-bottom: 9rem;
   padding: 2rem;
 }
 
@@ -219,38 +222,12 @@ main {
   padding: 5px;
   font-size: 1.2rem;
 }
-.edit-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-.edit-wrapper input {
-  padding: 5px;
-  font-size: 1.2rem;
-}
-.edit-content-button {
-  display: block;
-  width: 100px;
-  padding: 8px;
-  font-size: 1.1rem;
-  font-weight: bold;
-  margin-top: 1rem;
-  border-color: #00bc77;
-  background-color: #00bc77;
-  color: #fff;
-}
-.edit-content-button:disabled {
-  border-color: #95b4a9;
-  background-color: #95b4a9;
-}
 
 .footer {
   display: flex;
   justify-content: center;
   border-top: 2px solid #ccc;
   padding: 2rem 0 1.5rem;
-  height: 20px;
 }
 
 .footer-text {
@@ -320,42 +297,16 @@ main {
   color: #fff;
 }
 
-@keyframes rotate {
-  from {
-      transform: rotate(0deg);
-  }
-
-  to {
-      transform: rotate(360deg);
-  }
-}
-
-.loader-wrapper {
-  display: flex;
-  justify-content: center;
-  padding-top: 5px;
-}
-
-.loader {
-  padding: 10px;
-  border: 6px solid #00bc77;
-  border-bottom-color: transparent;
-  border-radius: 22px;
-  animation: rotate 1s infinite linear;
-  height: 0;
-  width: 0;
-}
-
 @media (min-width: 720px) {
   .account {
-      flex-direction: row;
+    flex-direction: row;
   }
 
   .account-content-wrapper.cta {
-      flex: 0;
+    flex: 0;
   }
 
   .transaction-button {
-      width: 200px;
+    width: 200px;
   }
 }

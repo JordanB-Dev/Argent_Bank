@@ -3,7 +3,7 @@ import axios from 'axios'
 
 const initialState = {
   credentials: {},
-  isAuth: true,
+  isAuth: false,
   token: null,
   status: 'idle',
   error: null,
@@ -35,10 +35,6 @@ export const authSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(getCredentials.pending, (state) => {
-        state.status = 'loading'
-        state.isAuth = false
-      })
       .addCase(getCredentials.fulfilled, (state, { payload }) => {
         state.status = 'succeeded'
         state.token = payload.body.token
@@ -47,11 +43,10 @@ export const authSlice = createSlice({
       .addCase(getCredentials.rejected, (state, action) => {
         state.status = 'failed'
         state.isAuth = false
-
         if (action.payload === 'ERR_NETWORK') {
           state.error = action.error.message
         } else if (action.payload === 'ERR_BAD_REQUEST') {
-          state.error = ' Invalid Username or Password'
+          state.error = 'The username or password are incorrect...'
         }
       })
   },

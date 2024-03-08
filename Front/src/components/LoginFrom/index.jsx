@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { getCredentials, userCredentials } from '../../redux/auth'
 
@@ -7,28 +7,26 @@ const LoginFrom = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+  const authStatus = useSelector((state) => state.auth.status)
+  const authError = useSelector((state) => state.auth.error)
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [btn, setBtn] = useState(false)
 
   const credentials = {
     email: email,
     password: password,
   }
 
-  useEffect(() => {
-    if (password.length > 5 && email !== '') {
-      setBtn(true)
-    } else if (btn) {
-      setBtn(false)
-    }
-  }, [password, email, btn])
-
   const handleSubmit = async (e) => {
     e.preventDefault()
+
     await dispatch(userCredentials(credentials))
     await dispatch(getCredentials(credentials))
-    navigate('/profile')
+
+    if (authStatus === 'succeeded') {
+      await navigate('/profile')
+    }
   }
 
   return (
@@ -61,11 +59,9 @@ const LoginFrom = () => {
         <input type="checkbox" id="remember-me" />
         <label htmlFor="remember-me">Remember me</label>
       </div>
-      {
-        <button disabled={btn ? false : true} className="sign-in-button">
-          Sign In
-        </button>
-      }
+
+      <button className="sign-in-button">Sign In</button>
+      {authError && <p className="errorMessage">{authError}</p>}
     </form>
   )
 }
