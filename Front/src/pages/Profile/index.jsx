@@ -4,7 +4,6 @@ import { fetchUserState } from '../../redux/user'
 
 const Profile = () => {
   const dispatch = useDispatch()
-
   const token = useSelector((state) => state.auth.token)
 
   useEffect(() => {

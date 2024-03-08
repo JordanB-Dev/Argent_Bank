@@ -3,7 +3,7 @@ import axios from 'axios'
 
 const initialState = {
   credentials: {},
-  isAuth: false,
+  isAuth: true,
   token: null,
   status: 'idle',
   error: null,
