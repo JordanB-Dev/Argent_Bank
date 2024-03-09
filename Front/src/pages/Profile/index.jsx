@@ -6,12 +6,23 @@ const Profile = () => {
   const dispatch = useDispatch()
 
   const token = useSelector((state) => state.auth.token)
+  const user = useSelector((state) => state.user)
 
   useEffect(() => {
     dispatch(fetchUserState(token))
   }, [dispatch, token])
 
-  return <h1>Profile</h1>
+  return (
+    <main className="main bg-dark">
+      <div className="header">
+        <h1>
+          Welcome back
+          <br />
+          {user.firstName} {user.lastName}
+        </h1>
+      </div>
+    </main>
+  )
 }
 
 export default Profile

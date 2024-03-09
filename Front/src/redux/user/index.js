@@ -7,7 +7,6 @@ const initialState = {
   firstName: null,
   lastName: null,
   createdAt: null,
-  updatedAt: null,
 }
 
 export const fetchUserState = createAsyncThunk(
@@ -35,7 +34,6 @@ export const userSlice = createSlice({
       state.firstName = payload.firstName
       state.lastName = payload.lastName
       state.createdAt = payload.createdAt
-      state.updatedAt = payload.updatedAt
     })
   },
 })

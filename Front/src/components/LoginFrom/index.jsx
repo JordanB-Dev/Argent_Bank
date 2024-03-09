@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { getCredentials, userCredentials } from '../../redux/auth'
+import { getCredentials } from '../../redux/auth'
 
 const LoginFrom = () => {
   const dispatch = useDispatch()
@@ -21,7 +21,6 @@ const LoginFrom = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    await dispatch(userCredentials(credentials))
     await dispatch(getCredentials(credentials))
 
     if (authStatus === 'succeeded') {
