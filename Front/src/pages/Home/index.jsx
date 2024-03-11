@@ -34,8 +34,8 @@ const Home = () => {
           return (
             <Feature
               key={index}
-              alt={feature.alt}
               src={feature.src}
+              alt={feature.alt}
               title={feature.title}
               desc={feature.desc}
             />
