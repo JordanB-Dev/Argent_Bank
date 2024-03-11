@@ -17,7 +17,7 @@ const Profile = () => {
     {
       title: 'Argent Bank Checking (x8349)',
       price: '$2,082.79',
-      description: 'Available Balance',
+      des: 'Available Balance',
     },
     {
       title: 'Argent Bank Savings (x6712)',
