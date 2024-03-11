@@ -1,17 +1,22 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchUserState } from '../../redux/user'
 import Account from '../../components/Account'
 
 const Profile = () => {
   const dispatch = useDispatch()
-
+  const [editToggle, setEditToggle] = useState(false)
   const token = useSelector((state) => state.auth.token)
   const user = useSelector((state) => state.user)
 
   useEffect(() => {
     dispatch(fetchUserState(token))
   }, [dispatch, token])
+
+  const handleToggle = (e) => {
+    e.preventDefault()
+    setEditToggle(!editToggle)
+  }
 
   const accounts = [
     {
@@ -39,6 +44,13 @@ const Profile = () => {
           <br />
           {user.firstName} {user.lastName}
         </h1>
+        {editToggle ? (
+          <></>
+        ) : (
+          <button className="edit-button" onClick={(e) => handleToggle(e)}>
+            Edit Name
+          </button>
+        )}
       </div>
       <h2 className="sr-only">Accounts</h2>
 
