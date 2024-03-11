@@ -21,11 +21,12 @@ export const fetchUserState = createAsyncThunk(
   },
 )
 
-export const updateUser = createAsyncThunk('user/updateUser', async (token) => {
+export const updateUser = createAsyncThunk('user/updateUser', async (data) => {
   const response = await axios({
     method: 'put',
     url: `${import.meta.env.VITE_URL}/api/v1/user/profile`,
-    headers: { Authorization: `Bearer ${token}` },
+    headers: { Authorization: `Bearer ${data.token}` },
+    data: data.newNames,
   })
   return response.data.body
 })

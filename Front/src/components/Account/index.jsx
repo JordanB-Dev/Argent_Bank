@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
-const Account = (props) => {
-  const { title, price, desc } = props
+const Account = ({ title, price, desc }) => {
   return (
     <section className="account">
       <div className="account-content-wrapper">

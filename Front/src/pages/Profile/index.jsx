@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchUserState } from '../../redux/user'
 import Account from '../../components/Account'
+import ProfileForm from '../../components/ProfileForm'
 
 const Profile = () => {
   const dispatch = useDispatch()
@@ -45,7 +46,7 @@ const Profile = () => {
           {user.firstName} {user.lastName}
         </h1>
         {editToggle ? (
-          <></>
+          <ProfileForm setToggle={setEditToggle} />
         ) : (
           <button className="edit-button" onClick={(e) => handleToggle(e)}>
             Edit Name

@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
-const Feature = (props) => {
-  const { src, alt, title, desc } = props
+const Feature = ({ src, alt, title, desc }) => {
   return (
     <div className="feature-item">
       <img src={src} alt={alt} className="feature-icon" />
