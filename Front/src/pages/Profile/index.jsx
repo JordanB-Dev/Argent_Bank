@@ -13,6 +13,24 @@ const Profile = () => {
     dispatch(fetchUserState(token))
   }, [dispatch, token])
 
+  const accounts = [
+    {
+      title: 'Argent Bank Checking (x8349)',
+      price: '$2,082.79',
+      description: 'Available Balance',
+    },
+    {
+      title: 'Argent Bank Savings (x6712)',
+      price: '$10,928.42',
+      desc: 'Available Balance',
+    },
+    {
+      title: 'Argent Bank Credit Card (x8349)',
+      price: '$184.30',
+      desc: 'Current Balance',
+    },
+  ]
+
   return (
     <main className="main bg-dark">
       <div className="header">
@@ -23,21 +41,17 @@ const Profile = () => {
         </h1>
       </div>
       <h2 className="sr-only">Accounts</h2>
-      <Account
-        title="Argent Bank Checking (x8349)"
-        price="$2,082.79"
-        desc="Available Balance"
-      />
-      <Account
-        title="Argent Bank Savings (x6712)"
-        price="$10,928.42"
-        desc="Available Balance"
-      />
-      <Account
-        title="Argent Bank Credit Card (x8349)"
-        price="$184.30"
-        desc="Current Balance"
-      />
+
+      {accounts.map((account, index) => {
+        return (
+          <Account
+            key={index}
+            title={account.title}
+            price={account.price}
+            desc={account.desc}
+          />
+        )
+      })}
     </main>
   )
 }
