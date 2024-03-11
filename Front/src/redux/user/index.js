@@ -21,6 +21,15 @@ export const fetchUserState = createAsyncThunk(
   },
 )
 
+export const updateUser = createAsyncThunk('user/updateUser', async (token) => {
+  const response = await axios({
+    method: 'put',
+    url: `${import.meta.env.VITE_URL}/api/v1/user/profile`,
+    headers: { Authorization: `Bearer ${token}` },
+  })
+  return response.data.body
+})
+
 export const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -28,13 +37,18 @@ export const userSlice = createSlice({
     resetUserState: (state) => Object.assign(state, initialState),
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchUserState.fulfilled, (state, { payload }) => {
-      state.id = payload.id
-      state.email = payload.email
-      state.firstName = payload.firstName
-      state.lastName = payload.lastName
-      state.createdAt = payload.createdAt
-    })
+    builder
+      .addCase(fetchUserState.fulfilled, (state, { payload }) => {
+        state.id = payload.id
+        state.email = payload.email
+        state.firstName = payload.firstName
+        state.lastName = payload.lastName
+        state.createdAt = payload.createdAt
+      })
+      .addCase(updateUser.fulfilled, (state, { payload }) => {
+        state.firstName = payload.firstName
+        state.lastName = payload.lastName
+      })
   },
 })
 
