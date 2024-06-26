@@ -1,9 +1,9 @@
-swagger: '2.0'
+swagger: "2.0"
 info:
   title: Bank Argent API documentation
   description: Contains all available API endpoints in this codebase
-  version: '1.0.0'
-  termsOfService: 'http://swagger.io/terms/'
+  version: "1.0.0"
+  termsOfService: "http://swagger.io/terms/"
 host: localhost:3001
 basePath: /api/v1
 schemes:
@@ -21,17 +21,17 @@ paths:
           description: Login Payload
           required: true
           schema:
-            $ref: '#/definitions/Login'
+            $ref: "#/definitions/Login"
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: Login Successfully
           schema:
-            $ref: '#/definitions/LoginResponse'
-        '400':
+            $ref: "#/definitions/LoginResponse"
+        "400":
           description: Invalid Fields
-        '500':
+        "500":
           description: Internal Server Error
   /user/signup:
     post:
@@ -45,17 +45,17 @@ paths:
           description: Signup Payload
           required: true
           schema:
-            $ref: '#/definitions/User'
+            $ref: "#/definitions/User"
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: Signup Successfully
           schema:
-            $ref: '#/definitions/ApiResponse'
-        '400':
+            $ref: "#/definitions/ApiResponse"
+        "400":
           description: Invalid Fields
-        '500':
+        "500":
           description: Internal Server Error
   /user/profile:
     post:
@@ -70,16 +70,17 @@ paths:
           name: Authorization
           description: Attach Bearer JWT token
           required: true
+          type: string
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: User profile retrieved successully
           schema:
-            $ref: '#/definitions/ApiResponse'
-        '400':
+            $ref: "#/definitions/ApiResponse"
+        "400":
           description: Invalid Fields
-        '500':
+        "500":
           description: Internal Server Error
     put:
       security:
@@ -93,22 +94,173 @@ paths:
           name: Authorization
           description: Attach Bearer JWT token
           required: true
+          type: string
         - in: body
           name: body
           description: Update user profile attributes
           required: true
           schema:
-            $ref: '#/definitions/UserProfile'
+            $ref: "#/definitions/UserProfile"
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: User profile retrieved successully
           schema:
-            $ref: '#/definitions/ApiResponse'
-        '400':
+            $ref: "#/definitions/ApiResponse"
+        "400":
           description: Invalid Fields
-        '500':
+        "500":
+          description: Internal Server Error
+  /accounts/{userId}/{accountId}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Accounts Module
+      summary: 1 User Account
+      description: Retrieve all Accounts of a given User
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+        - in: path
+          name: userId
+          description: User ID
+          required: true
+          type: string
+        - in: path
+          name: accountId
+          description: Account ID
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: 1 User Account Retrieved Successfully
+          schema:
+            $ref: "#/definitions/AccountResponse"
+        "400":
+          description: Invalid Fields
+        "404":
+          description: Not Found
+          schema:
+            $ref: "#/definitions/NotFoundResponse"
+        "500":
+          description: Internal Server Error
+  /transactions/{userId}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: All Transactions of an User
+      description: Retrieve all User ID based Transactions and grouped by account(s)
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+        - name: userId
+          in: path
+          required: true
+          type: string
+        - name: date
+          in: query
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: All User Transactions Retrieved Successfully
+          schema:
+            $ref: "#/definitions/TransactionResponse"
+        "400":
+          description: Invalid Fields
+        "404":
+          description: Not Found
+          schema:
+            $ref: "#/definitions/NotFoundResponse"
+        "500":
+          description: Internal Server Error
+  /transactions/{accountId}/{transactionId}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: 1 Account Transaction
+      description: Retrieve 1 Transaction based on its related Account ID
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+        - name: accountId
+          in: path
+          required: true
+          type: string
+        - name: transactionId
+          in: path
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: 1 Transaction for a given Account Retrieved Successfully
+          schema:
+            $ref: "#/definitions/TransactionResponse"
+        "400":
+          description: Invalid Fields
+        "404":
+          description: Not Found
+          schema:
+            $ref: "#/definitions/NotFoundResponse"
+        "500":
+          description: Internal Server Error
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Informations of 1 Transaction
+      description: Add, Modify & Delete the informations of a transaction
+      parameters:
+        - in: header
+          name: Authorization
+            description: Attach Bearer JWT token
+          required: true
+          type: string
+        - name: accountId
+          in: path
+          required: true
+          type: string
+        - name: transactionId
+          in: path
+          required: true
+          type: string
+        - name: transactionNewInfo
+          in: body
+          description: Create transaction with given information
+          required: true
+          schema:
+            $ref: "#/definitions/TransactionInfo"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Transaction Information Updated Successfully
+          schema:
+            $ref: "#/definitions/TransactionResponse"
+        "400":
+          description: Invalid Fields
+        "500":
           description: Internal Server Error
 securityDefinitions:
   Bearer:
@@ -120,9 +272,11 @@ definitions:
     properties:
       email:
         type: string
+        format: email
         description: user email
       password:
         type: string
+        format: password
         description: user password
       firstName:
         type: string
@@ -150,7 +304,15 @@ definitions:
         properties:
           id:
             type: string
+          firstName:
+            type: string
+          lastName:
+            type: string
           email:
+            type: string
+          createdAt:
+            type: string
+          updatedAt:
             type: string
   LoginResponse:
     type: object
@@ -163,4 +325,96 @@ definitions:
       firstName:
         type: string
       lastName:
+        type: string
+  Account:
+    properties:
+      id:
+        type: number
+        example: D4F57
+      userId:
+        type: string
+        example: 123
+      title:
+        type: string
+        description: Name of the account
+        example: Argent Bank Checking (x8349)
+      amount:
+        type: string
+        description: The current amount on the account
+        example: $2,082.79
+      description:
+        type: string
+        enum: [Available Balance, Current Balance]
+  AccountResponse:
+    type: object
+    properties:
+      status:
+        type: number
+        example: 200
+      message:
+        type: string
+      account:
+        $ref: "#/definitions/Account"
+  Transaction:
+    properties:
+      id:
+        type: string
+        example: DFG44
+      userId:
+        type: string
+        example: 123
+      accountId:
+        type: number
+        example: D4F57
+      date:
+        type: string
+        example: June 20th, 2020
+      description:
+        type: string
+        example: Golden Sun Bakery
+      amount:
+        type: string
+        example: $5.00
+      balance:
+        type: string
+        description: Remaining balance after deduising the current transaction
+        example: $2,000
+      type:
+        type: string
+        example: Electronic
+      category:
+        type: string
+        enum:
+          [Food, Bank fees, Savings, Travels, Entertainment, Transportations]
+        example: Food
+      notes:
+        type: string
+        description: Any comments the user wants to attach to the transaction
+        example: Favorite Bakery !
+  TransactionResponse:
+    type: object
+    properties:
+      status:
+        type: number
+        example: 200
+      message:
+        type: string
+      transaction:
+        $ref: "#/definitions/Transaction"
+  TransactionInfo:
+    properties:
+      category:
+        type: string
+        example: Food
+      notes:
+        type: string
+        description: Any comments the user wants to attach to the transaction
+        example: Favorite Bakery !
+  NotFoundResponse:
+    type: object
+    properties:
+      status:
+        type: number
+        example: 404
+      message:
         type: string
