@@ -234,7 +234,7 @@ paths:
       parameters:
         - in: header
           name: Authorization
-            description: Attach Bearer JWT token
+          description: Attach Bearer JWT token
           required: true
           type: string
         - name: accountId
