@@ -230,7 +230,7 @@ paths:
       tags:
         - Transactions Module
       summary: Informations of 1 Transaction
-      description: Add, Modify & Delete the informations of a transaction
+      description: Add or Modify the informations of a transaction
       parameters:
         - in: header
           name: Authorization
@@ -258,6 +258,38 @@ paths:
           description: Transaction Information Updated Successfully
           schema:
             $ref: "#/definitions/TransactionResponse"
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Delete of 1 Transaction
+      description: Delete the informations of a transaction
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+        - name: accountId
+          in: path
+          required: true
+          type: string
+        - name: transactionId
+          in: path
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Informations delete successfully
+          schema:
+            $ref: "#/definitions/TransactionDeleteResponse"
         "400":
           description: Invalid Fields
         "500":
@@ -401,6 +433,43 @@ definitions:
         type: string
       transaction:
         $ref: "#/definitions/Transaction"
+  TransactionDelete:
+    properties:
+      id:
+        type: string
+        example: DFG44
+      userId:
+        type: string
+        example: 123
+      accountId:
+        type: number
+        example: D4F57
+      date:
+        type: string
+        example: June 20th, 2020
+      description:
+        type: string
+        example: Golden Sun Bakery
+      amount:
+        type: string
+        example: $5.00
+      balance:
+        type: string
+        description: Remaining balance after deduising the current transaction
+        example: $2,000
+      type:
+        type: string
+        example: Electronic
+  TransactionDeleteResponse:
+    type: object
+    properties:
+      status:
+        type: number
+        example: 200
+      message:
+        type: string
+      transaction:
+        $ref: "#/definitions/TransactionDelete"
   TransactionInfo:
     properties:
       category:
