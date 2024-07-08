@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateUser } from '../../redux/user'
 
@@ -8,8 +8,6 @@ const ProfileForm = ({ setToggle }) => {
 
   const token = useSelector((state) => state.auth.token)
   const user = useSelector((state) => state.user)
-
-  const [btn, setBtn] = useState(false)
 
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -21,14 +19,6 @@ const ProfileForm = ({ setToggle }) => {
   const handleCancel = () => {
     setToggle(false)
   }
-
-  useEffect(() => {
-    if (firstName.length > 3 && lastName.length > 3) {
-      setBtn(true)
-    } else if (btn) {
-      setBtn(false)
-    }
-  }, [firstName, lastName, btn])
 
   const handleEdit = async (token, newNames) => {
     const data = { token, newNames }
@@ -58,7 +48,6 @@ const ProfileForm = ({ setToggle }) => {
       </div>
       <div className="edit-wrapper">
         <button
-          disabled={btn ? false : true}
           className="edit-button"
           onClick={() => handleEdit(token, newNames)}
         >
